@@ -1,0 +1,6 @@
+psycopg[binary]
+python-dotenv
+seaborn
+google-generativeai
+tabulate
+matplotlib
