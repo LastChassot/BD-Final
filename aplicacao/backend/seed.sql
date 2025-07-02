@@ -57,7 +57,7 @@ INSERT INTO cpe_enc.projeto (titulo, descricao, dt_inicio, dt_fim_prevista, stat
 ('Sistema de Recomendação para E-commerce', 'Desenvolvimento de um sistema de recomendação baseado em filtragem colaborativa.', '2024-03-01', '2025-03-01', 'Em Andamento', 1),
 ('Detecção de Anomalias em Redes IoT', 'Uso de machine learning para detectar comportamento anômalo em redes de sensores.', '2023-09-01', '2024-09-01', 'Em Andamento', 2),
 ('Plataforma Segura de Votação Eletrônica', 'Implementação de um sistema de votação com blockchain para garantir a segurança.', '2024-01-15', '2025-01-15', 'Em Andamento', 3),
-('Robô Seguidor de Linha Autônomo', 'Projeto de hardware e software para um robô competidor.', '2023-05-01', '2024-05-01', 'Concluído', 2),
+('Robô Seguidor de Linha Autônomo', 'Projeto de hardware e software para um robô competidor.', '2023-05-01', '2024-05-01', 'Concluido', 2),
 ('Portal de Notícias para o Campus', 'Desenvolvimento de um portal web completo com React e Node.js.', '2024-08-01', '2025-02-01', 'Proposto', 1),
 
 -- Easter Eggs
@@ -103,6 +103,6 @@ INSERT INTO cpe_enc.candidatura (id_aluno, id_vaga, status) VALUES
 (8, 1, 'Enviada'),
 (9, 1, 'Enviada'),
 (4, 2, 'Aprovada'),
-(6, 3, 'Em Análise'),
+(6, 3, 'Em Analise'),
 (7, 4, 'Enviada'),
 (5, 5, 'Enviada');

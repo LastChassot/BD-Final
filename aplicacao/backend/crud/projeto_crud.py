@@ -1,7 +1,7 @@
 # profjeto_crud.py
 import os
 import psycopg
-from db_config import get_db_connection
+from backend.db_config import get_db_connection
 from tabulate import tabulate # Para exibir resultados de forma tabular
 
 def create_projeto(titulo, descricao, dt_inicio, dt_fim_prevista, status, id_professor_orientador):
@@ -268,22 +268,16 @@ def get_professor_projetos_summary():
             conn.close()
 
 if __name__ == "__main__":
-    # Este bloco é para testar as funções CRUD.
-    # Certifique-se de que seu arquivo .env está configurado
-    # e o banco de dados está rodando e populado (db_setup.py).
-
     print("--- Testando CRUD de Projetos ---")
 
-    # Exemplo de Criação
     print("\n--- Criando um novo projeto ---")
-    # Usando um professor existente (ex: Prof. Dr. Carlos Silva - ID 1)
     new_proj_id = create_projeto(
         "Novo Projeto de Teste",
         "Descrição detalhada do novo projeto de teste.",
         "2024-07-01",
         "2025-07-01",
         "Proposto",
-        1 # ID do Prof. Dr. Carlos Silva
+        1
     )
     if new_proj_id:
         print(f"Novo projeto criado com ID: {new_proj_id}")

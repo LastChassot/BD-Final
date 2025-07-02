@@ -1,6 +1,6 @@
 import os
 import psycopg
-from db_config import get_db_connection
+from backend.db_config import get_db_connection
 
 def create_professor(nome_completo, email, senha_hash, siape, sala=None):
     conn = get_db_connection()
@@ -197,9 +197,7 @@ def delete_professor(id_usuario):
             conn.close()
 
 if __name__ == "__main__":
-
     print("--- Testando CRUD de Professores ---")
-
     print("\n--- Criando um novo professor ---")
     new_prof_id = create_professor(
         "Prof. Teste", "teste.prof@ufsc.br", "senha_hash_teste", "100001", "D404"

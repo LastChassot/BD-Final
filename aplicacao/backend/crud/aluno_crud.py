@@ -1,11 +1,11 @@
 import psycopg
-from db_config import get_db_connection
+from backend.db_config import get_db_connection
 from tabulate import tabulate
 
 
-def create_aluno():
+def create_aluno(self, nome_completo, email, senha_hash, matricula, semestre):
     """
-    Cria um novo aluno no banco de dados.
+    Cria um novo aluno no banco de dados usando os dados fornecidos.
     Primeiro insere na tabela 'usuario' e depois na tabela 'aluno'.
     """
     conn = get_db_connection()
@@ -13,50 +13,36 @@ def create_aluno():
         return
 
     try:
-        # Coleta de dados do novo aluno
-        nome = input("Nome completo do aluno: ")
-        email = input("Email do aluno (ex: nome@grad.ufsc.br): ")
-        senha = "senha_padrao_123"  # Senha padrão para novos usuários
-        matricula = input("Matrícula do aluno (ex: 202501234): ")
+        # A senha pode ser padronizada aqui se não for passada como argumento
+        if not senha_hash:
+            senha_hash = "senha_padrao_123"
 
-        while True:
-            try:
-                semestre_str = input("Semestre do aluno: ")
-                semestre = int(semestre_str)
-                if semestre <= 0:
-                    print("O semestre deve ser um número positivo.")
-                    continue
-                break
-            except ValueError:
-                print("Entrada inválida. Por favor, insira um número para o semestre.")
-
-        # Inicia uma transação
         with conn.cursor() as cur:
-            # Insere na tabela base 'usuario' e obtém o ID gerado
+            # Etapa 1: Inserir na tabela 'usuario'
             cur.execute(
                 "INSERT INTO cpe_enc.usuario (nome_completo, email, senha_hash) VALUES (%s, %s, %s) RETURNING id_usuario",
-                (nome, email, senha)
+                (nome_completo, email, senha_hash)
             )
-            # O fetchone() retorna uma tupla, pegamos o primeiro elemento
+            # Pega o ID do usuário que acabou de ser criado
             id_usuario = cur.fetchone()[0]
 
-            # Insere na tabela de especialização 'aluno'
+            # Etapa 2: Inserir na tabela 'aluno' com o ID obtido
             cur.execute(
                 "INSERT INTO cpe_enc.aluno (id_usuario, matricula, semestre) VALUES (%s, %s, %s)",
                 (id_usuario, matricula, semestre)
             )
 
-        # Efetiva a transação
+        # Se tudo deu certo, efetiva a transação
         conn.commit()
-        print(f"\nAluno '{nome}' criado com sucesso!")
+        print(f"\nAluno '{nome_completo}' criado com sucesso!")
 
     except psycopg.Error as e:
-        # Desfaz a transação em caso de erro
+        # Se qualquer erro ocorrer, desfaz a transação inteira
         if conn:
             conn.rollback()
         print(f"Erro ao criar aluno: {e}")
     finally:
-
+        # Fecha a conexão independentemente do resultado
         if conn:
             conn.close()
 

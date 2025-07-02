@@ -300,7 +300,6 @@ def gerenciar_projetos():
 
 def menu_crud():
     """Exibe o menu principal de operações CRUD."""
-
     menu_options: Dict[str, Callable] = {
         "1": gerenciar_alunos,
         "2": gerenciar_professores,
@@ -395,7 +394,7 @@ def main():
     main_menu_actions: Dict[str, Callable] = {
         "1": menu_crud,
         "2": menu_relatorios,
-        "3": ai_assistant.ask_ai,
+        "3": ai_assistant.menu_ai_assistant,
         "4": db_setup.create_tables,
         "5": db_setup.seed_data,
         "6": drop_all_tables_confirmed,
@@ -404,20 +403,12 @@ def main():
     while True:
         clear_screen()
         print("====== SISTEMA DE GESTÃO DE PROJETOS DE EXTENSÃO ======")
-        print("\n")
         print("1. Operações CRUD (Inserir, Ler, Atualizar, Deletar)")
-
-        print("\n")
         print("2. Gerar Relatórios Gerenciais")
-
-        print("\n")
         print("3. Assistente de IA (Linguagem Natural para SQL)")
-
-        print("\n")
         print("4. Criar Estrutura de Tabelas (Requer BD vazio)")
         print("5. Popular Banco de Dados com Dados de Exemplo (Seed)")
         print("6. APAGAR TODAS AS TABELAS (AÇÃO DESTRUTIVA)")
-
         print("\n0. Sair")
         print("=======================================================")
 
